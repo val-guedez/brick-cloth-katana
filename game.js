@@ -48,28 +48,21 @@ function playRound(computerChoice, humanChoice) {
     if (computerChoice === humanChoice) {
         console.log("It's a tie ¯\\_(ツ)_/¯");
     } else if (computerChoice === options[BRICK]) {
-        if (humanChoice === options[CLOTH]) {
-            humanScore++;
-            console.log("Cloth beats Brick!\nThe human won this round!!");
-        } else {
-            computerScore++;
-            console.log("Brick beats Katana!\nThe computer won this round(come on you piece of flesh...)!!");
-        }
+        humanWon(options[CLOTH], humanChoice, computerChoice) ? humanScore++ : computerScore++;
     } else if (computerChoice === options[CLOTH]) {
-        if (humanChoice === options[KATANA]) {
-            humanScore++;
-            console.log("Katana beats Cloth!\nThe human won this round!!");
-        } else {
-            computerScore++;
-            console.log("Cloth beats Brick!\nThe computer won this round(come on you piece of flesh...)!!");
-        }
+        humanWon(options[KATANA], humanChoice, computerChoice) ? humanScore++ : computerScore++;
     } else {
-        if (humanChoice === options[BRICK]) {
-            humanScore++;
-            console.log("Brick beats Katana!\nThe human won this round!!");
-        } else {
-            computerScore++;
-            console.log("Katana beats Cloth!\nThe computer won this round(come on you piece of flesh...)!!");
-        }
+        humanWon(options[BRICK], humanChoice, computerChoice) ? humanScore++ : computerScore++;
+    }
+}
+
+function humanWon(requiredWin, humanChoice, computerChoice) {
+    if (requiredWin === humanChoice) {
+        console.log(`${humanChoice} beats ${computerChoice}!\nThe human won this round!!`);
+        return true;
+    } else {
+        computerScore++;
+        console.log(`${computerChoice} beats ${humanChoice}!\nThe computer won this round(come on you piece of flesh...)!!`);
+        return false;
     }
 }
