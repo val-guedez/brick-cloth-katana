@@ -1,7 +1,8 @@
 const options = ["brick", "cloth", "katana"];
 
 function getComputerChoice() {
-    const index = (Math.random() * 10) % 3;
+    const randomNum = Math.round(Math.random() * 10);
+    const index = randomNum % 3;
 
     switch (index) {
         case 0:
@@ -14,3 +15,5 @@ function getComputerChoice() {
             throw new Error("erm what the sigma...");
     }
 }
+
+console.log(getComputerChoice());
