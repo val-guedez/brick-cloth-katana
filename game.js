@@ -16,4 +16,20 @@ function getComputerChoice() {
     }
 }
 
+function getHumanChoice() {
+    const choice = prompt("brick, cloth or katana?");
+
+    if (choice == null ) {
+        throw new Error("Input something please.");
+    }
+
+    const formattedChoice = choice.toLowerCase();
+    if (options.find((option) => option == choice) == undefined) {
+        throw new Error("Not a valid move bestie :))");
+    }
+
+    return formattedChoice;
+}
+
 console.log(getComputerChoice());
+console.log(getHumanChoice());
