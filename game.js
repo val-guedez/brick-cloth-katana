@@ -1,16 +1,26 @@
+// Constants
 const options = ["brick", "cloth", "katana"];
 const BRICK = 0;
 const CLOTH = 1;
 const KATANA = 2;
-
+const ROUND_LENGTH = 5;
 let humanScore = 0;
 let computerScore = 0;
 
-const humanChoice = getHumanChoice();
-const compChoice = getComputerChoice();
-console.log(`Computer chose ${compChoice}`);
+gameLoop();
 
-playRound(compChoice, humanChoice)
+function gameLoop() {
+    for (let i = 0; i < ROUND_LENGTH; i++) {
+        const humanChoice = getHumanChoice();
+        const compChoice = getComputerChoice();
+        console.log(`Computer chose ${compChoice}`);
+        console.log(`Human chose ${humanChoice}`);
+
+        playRound(compChoice, humanChoice);
+    }
+
+    getResults();
+}
 
 function getComputerChoice() {
     const randomNum = Math.round(Math.random() * 10);
@@ -47,6 +57,7 @@ function getHumanChoice() {
 function playRound(computerChoice, humanChoice) {
     if (computerChoice === humanChoice) {
         console.log("It's a tie ¯\\_(ツ)_/¯");
+        console.log("----------------------------------------------------------------");
     } else if (computerChoice === options[BRICK]) {
         humanWon(options[CLOTH], humanChoice, computerChoice) ? humanScore++ : computerScore++;
     } else if (computerChoice === options[CLOTH]) {
@@ -59,10 +70,22 @@ function playRound(computerChoice, humanChoice) {
 function humanWon(requiredWin, humanChoice, computerChoice) {
     if (requiredWin === humanChoice) {
         console.log(`${humanChoice} beats ${computerChoice}!\nThe human won this round!!`);
+        console.log("----------------------------------------------------------------");
         return true;
     } else {
         computerScore++;
         console.log(`${computerChoice} beats ${humanChoice}!\nThe computer won this round(come on you piece of flesh...)!!`);
+        console.log("----------------------------------------------------------------");
         return false;
+    }
+}
+
+function getResults() {
+    if (humanScore > computerScore) {
+        console.log("The human won! gg");
+    } else if (computerScore > humanScore) {
+        console.log("The computer won! gg");
+    } else {
+        console.log("It's a tie, y'all suck!");
     }
 }
