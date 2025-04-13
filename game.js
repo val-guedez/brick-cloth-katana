@@ -19,38 +19,42 @@ const statusContainer = document.querySelector("#status-container");
 
 
 brickButton.addEventListener("click", () => {
-    const compChoice = getComputerChoice();
-
-    displayGameStatus(compChoice, "brick");
-    playRound(compChoice, "brick");
+    if (isGameOver()) {
+        getResults();
+    } else {
+        const compChoice = getComputerChoice();
+        displayGameStatus(compChoice, "brick");
+        playRound(compChoice, "brick");
+        if (isGameOver()) getResults();
+    }
 });
 
 clothButton.addEventListener("click", () => {
-    const compChoice = getComputerChoice();
-
-    displayGameStatus(compChoice, "cloth");
-    playRound(compChoice, "cloth");
+    if (isGameOver()) {
+        getResults();
+    } else {
+        const compChoice = getComputerChoice();
+        displayGameStatus(compChoice, "cloth");
+        playRound(compChoice, "cloth");
+        if (isGameOver()) getResults();
+    }
 });
 
 katanaButton.addEventListener("click", () => {
-    const compChoice = getComputerChoice();
-
-    displayGameStatus(compChoice, "katana");
-    playRound(compChoice, "katana");
+    if (isGameOver()) {
+        getResults();
+    } else {
+        const compChoice = getComputerChoice();
+        displayGameStatus(compChoice, "katana");
+        playRound(compChoice, "katana");
+        if (isGameOver()) getResults();
+    }
 });
 
-// gameLoop();
-
-// function gameLoop() {
-//     const humanChoice = getHumanChoice();
-//     const compChoice = getComputerChoice();
-//     console.log(`Computer chose ${compChoice}`);
-//     console.log(`Human chose ${humanChoice}`);
-
-//     playRound(compChoice, humanChoice);
-
-//     getResults();
-// }
+function isGameOver() {
+    if (humanScore === 5 || computerScore === 5) return true;
+    return false;
+}
 
 function getComputerChoice() {
     const randomNum = Math.round(Math.random() * 10);
@@ -161,11 +165,26 @@ function displayTie() {
 }
 
 function getResults() {
+    const statusContainer = document.querySelector("#status-container");
+    let finalResult = document.querySelector("#final-result");
+    if (finalResult === null) {
+        finalResult = document.createElement("div");
+        finalResult.setAttribute("id", "final-result");
+        statusContainer.appendChild(finalResult);
+
+        const statusMessage = document.querySelector("#status-message");
+        const compChoiceUi = document.querySelector("#comp-choice");
+        const humanChoiceUi = document.querySelector("#human-choice");
+        statusContainer.removeChild(statusMessage);
+        statusContainer.removeChild(compChoiceUi);
+        statusContainer.removeChild(humanChoiceUi);
+    }
+    
     if (humanScore > computerScore) {
-        console.log("The human won! gg");
+        finalResult.textContent = "The human won! gg"; 
     } else if (computerScore > humanScore) {
-        console.log("The computer won! gg");
+        finalResult.textContent = "The computer won! gg"; 
     } else {
-        console.log("It's a tie, y'all suck!");
+        finalResult.textContent = "It's a tie, y'all suck!"; 
     }
 }
